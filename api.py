@@ -14,5 +14,5 @@ def api_function():
         with file_path.open(mode = 'w', encoding = 'UTF-8', errors = 'ignore') as file:
             text = file.write(f'[REAL TIME CURRENCY COVERSION RATE] USD1 = SGD{forex:.5f}')
     else:
-        print('File path does not exist')
+        print('api_function: File path does not exist')
     return forex
