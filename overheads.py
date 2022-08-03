@@ -13,7 +13,7 @@ def overheads_function(forex):
             for row in reader:
                 oh[row[0]] = float(row[1]) * forex
     else:
-        print('overheads_functionn: File path does not exist')    
+        print('overheads_function: oh_csv does not exist')    
     highest_value = 0
     for key in oh:
         if oh[key] > highest_value:
@@ -23,3 +23,5 @@ def overheads_function(forex):
             if file_path.exists():
                 with file_path.open(mode = 'a', encoding = 'UTF-8', errors = 'ignore') as file:
                     text = file.write(f'\n[HIGHEST OVERHEADS] {key.upper()}: SGD{value:.2f}')
+            else:
+                print('overheads_function: file_path does not exist')
