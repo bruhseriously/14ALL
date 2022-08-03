@@ -6,8 +6,16 @@ file_path = Path.cwd()/'summary_report.txt'
 # set file path to cash on hand.csv
 coh_csv = Path.cwd()/'csv_reports'/'Cash on Hand.csv'
 
-# create function to find cash defict or surplus
+# create function to find cash deficit or surplus
 def cashonhand_function(forex):
+    '''
+    - This function accepts one parameter, forex.
+    - The function will calculate the difference in the cash on hand between each day and 
+      convert it to SGD using the real time exchange rate from the API call.
+    - If the cash on hand is not consecutively higher each day, the function will highlight 
+      the day where cash on hand is lower than the previous day and the value difference
+      in summary_report.txt.
+    '''
     if coh_csv.exists():
         with coh_csv.open(mode = 'r', encoding = 'UTF-8', errors = 'ignore') as csvfile:
             # create a reader object
@@ -36,13 +44,13 @@ def cashonhand_function(forex):
         if diff > 0:
             if file_path.exists():
                 with file_path.open(mode = 'a', encoding = 'UTF-8', errors = 'ignore') as file:
-                    # write cash defict with corresponding day and difference amount rounded off to 2d.p. in summary_report.txt
+                    # write cash deficit with corresponding day and difference amount rounded off to 2d.p. in summary_report.txt
                     text = file.write(f'\n[CASH DEFICIT] DAY: {day[amount + 1]}, AMOUNT: SGD{diff:.2f}')
                     # prevents cash surplus line from being written
                     count += 1
             else:
                 print('cashonhand_function: file_path does not exist')
-    # count variable only lets cash surplus be written if there is no cash defict
+    # count variable only lets cash surplus be written if there is no cash deficit
     if count == 0:
         if file_path.exists():
             with file_path.open(mode = 'a', encoding = 'UTF-8', errors = 'ignore') as file:

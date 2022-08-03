@@ -6,8 +6,16 @@ file_path = Path.cwd()/'summary_report.txt'
 # set file path to profit and loss csv
 pl_csv = Path.cwd()/'csv_reports'/'Profit and Loss.csv'
 
-# create function to find profit defict or surplus
+# create function to find profit deficit or surplus
 def profitloss_function(forex):
+    '''
+    - This function accepts one parameter, forex.
+    - The function will calculate the difference in the net profit between each day and 
+      convert it to SGD using the real time exchange rate from the API call.
+    - If the net profit is not consecutively higher each day, the function will highlight 
+      the day where net profit is lower than the previous day and the value difference 
+      in summary_report.txt.
+    '''
     if pl_csv.exists():
         with pl_csv.open(mode = 'r', encoding = 'UTF-8', errors = 'ignore') as csvfile:
             # create a reader object
@@ -36,13 +44,13 @@ def profitloss_function(forex):
         if diff > 0:
             if file_path.exists():
                 with file_path.open(mode = 'a', encoding = 'UTF-8', errors = 'ignore') as file:
-                    # write profit defict with corresponding day and difference amount rounded off to 2d.p. in summary_report.txt
+                    # write profit deficit with corresponding day and difference amount rounded off to 2d.p. in summary_report.txt
                     text = file.write(f'\n[PROFIT DEFICIT] DAY: {day[amount + 1]}, AMOUNT: SGD{diff:.2f}')
                     # prevents profit surplus line from being written
                     count += 1
             else:
                 print('profitloss_function: file_path does not exist')
-    # count variable only lets profit surplus be written if there is no profit defict
+    # count variable only lets profit surplus be written if there is no profit deficit
     if count == 0:
         if file_path.exists():
             with file_path.open(mode = 'a', encoding = 'UTF-8', errors = 'ignore') as file:

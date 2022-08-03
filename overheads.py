@@ -6,8 +6,13 @@ file_path = Path.cwd()/'summary_report.txt'
 # create file path to overheads.csv
 oh_csv = Path.cwd()/'csv_reports'/'Overheads.csv'
 
-# create function to find highest overheads
+# create function to find highest overheads and value
 def overheads_function(forex):
+    '''
+    - This function accepts one parameter, forex
+    - The function will find the highest overhead category and its value converted 
+      to SGD using the real time exchange rate from the API call. 
+    '''
     if oh_csv.exists():
         with oh_csv.open(mode = 'r', encoding = 'UTF-8', errors = 'ignore') as csvfile:
             # create a reader object
