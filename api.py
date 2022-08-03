@@ -7,3 +7,5 @@ response = requests.get(url)
 data = response.json()
 
 file_path = Path.cwd()/'summary_report.txt'
+
+def api_function():
